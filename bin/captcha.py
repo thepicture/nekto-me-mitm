@@ -3,10 +3,11 @@ from sys import argv
 import undetected_chromedriver as uc
 from selenium.webdriver.common.by import By
 
-_, public_key = argv
+_, public_key, user_agent = argv
 
 chrome_options = uc.ChromeOptions()
 chrome_options.headless = False
+chrome_options.add_argument('--user-agent={user_agent}'.format(user_agent=user_agent))
 
 driver = uc.Chrome(options=chrome_options, version_main=113)
 

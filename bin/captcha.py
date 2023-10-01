@@ -7,14 +7,14 @@ _, public_key, user_agent = argv
 
 chrome_options = uc.ChromeOptions()
 chrome_options.headless = False
-chrome_options.add_argument('--user-agent={user_agent}'.format(user_agent=user_agent))
+chrome_options.add_argument(f'--user-agent={user_agent}')
 
 driver = uc.Chrome(options=chrome_options, version_main=113)
 
-driver.get('https://nekto.me/rules')
+driver.get('https://nekto.me/chat/#/')
 
 driver.execute_script('window.stop()')
-driver.execute_script("""
+driver.execute_script(f"""
  document.write(`<html>
     <head>
       <script>
@@ -27,9 +27,9 @@ driver.execute_script("""
     </body>
   </html>
  `)
-""".format(public_key=public_key))
+""")
 
-driver.implicitly_wait(16)
+driver.implicitly_wait(32)
 
 driver.switch_to.frame(driver.find_element(By.TAG_NAME, 'iframe'))
 driver.find_element(By.ID, 'recaptcha-anchor').click()
